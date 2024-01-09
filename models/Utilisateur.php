@@ -10,18 +10,18 @@ class Utilisateur {
         $this->db = new Database;
     }
 
-
     // Register User
     public function register($data){
+        
         $this->db->query('INSERT INTO utilisateur (nom, email, password, role) 
         VALUES (:name, :email, :password, 2)');
         // Bind values
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
-
         // Execute
         if($this->db->execute()){
+
             return true;
         } else {
             return false;

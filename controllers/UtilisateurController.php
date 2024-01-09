@@ -25,6 +25,8 @@ class UtilisateurController
             'password' => trim($_POST['password'])
         ];
 
+        
+
 
         // Validate inputs
         if (empty($data['name']) || empty($data['email']) || empty($data['password'])) {
@@ -58,7 +60,7 @@ class UtilisateurController
 
         // Register User
         if ($this->userModel->register($data)) {
-            redirect("../../wiki_tm//index.php");
+            redirect("../../wiki_tm/index.php");
         } else {
             die("Something went wrong");
         }

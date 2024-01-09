@@ -117,11 +117,11 @@
                 <!-- Statistics Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
                     <div class="bg-black dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-around p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
-                        <div class="flex justify-center items-center w-10 h-10 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                        <a class="flex justify-center items-center w-10 h-10 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 12.75V18H12.75V12.75H18V11.25H12.75V6H11.25V11.25H6V12.75H11.25Z" fill="#080341" />
                             </svg>
-                        </div>
+                        </a>
                         <div class="text-right px-4">
                             <p>Ajouter Tag</p>
                         </div>
