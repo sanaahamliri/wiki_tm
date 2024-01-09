@@ -3,43 +3,46 @@
 require_once '../models/Utilisateur.php';
 require '../helpers/header.php';
 
-class UtilisateurController{
+class UtilisateurController
+{
 
     private $userModel;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->userModel = new Utilisateur;
     }
 
-    public function register(){
+    public function register()
+    {
         // Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
+
         // Init data
         $data = [
             'name' => trim($_POST['username']),
             'email' => trim($_POST['email']),
             'password' => trim($_POST['password'])
         ];
-      
+
 
         // Validate inputs
-        if(empty($data['name']) || empty($data['email']) || empty($data['password'])){
+        if (empty($data['name']) || empty($data['email']) || empty($data['password'])) {
             flash("register", "Please fill out all inputs");
             redirect("../views/signup.php");
         }
 
-        if(!preg_match("/^[a-zA-Z0-9]*$/", $data['password'])){
+        if (!preg_match("/^[a-zA-Z0-9]*$/", $data['password'])) {
             flash("register", "Invalid password");
             redirect("../views/signup.php");
         }
 
-        if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             flash("register", "Invalid email");
             redirect("../views/signup.php");
         }
 
-        if(strlen($data['password']) < 6){
+        if (strlen($data['password']) < 6) {
             flash("register", "Password should be at least 6 characters");
             redirect("../views/signup.php");
         }
@@ -54,25 +57,25 @@ class UtilisateurController{
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
         // Register User
-        if($this->userModel->register($data)){
-
-            redirect("../views/login.php");
+        if ($this->userModel->register($data)) {
+            redirect("../../wiki_tm//index.php");
         } else {
             die("Something went wrong");
         }
     }
 
-    public function login(){
+    public function login()
+    {
         // Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
         // Init data
-        $data=[
+        $data = [
             'name/email' => trim($_POST['name/email']),
             'password' => trim($_POST['password'])
         ];
 
-        if(empty($data['name/email']) || empty($data['password'])){
+        if (empty($data['name/email']) || empty($data['password'])) {
             flash("login", "Please fill out all inputs");
             redirect("../views/login.php");
             exit();
@@ -81,9 +84,9 @@ class UtilisateurController{
         // Check for user/email
         $loggedInUser = $this->userModel->findUserByEmailOrName($data['name/email'], $data['name/email']);
 
-        if($loggedInUser){
+        if ($loggedInUser) {
             // User Found
-            if(password_verify($data['password'], $loggedInUser->password)){
+            if (password_verify($data['password'], $loggedInUser->password)) {
                 // Password is correct
                 // Create session
                 $this->createUserSession($loggedInUser);
@@ -97,28 +100,28 @@ class UtilisateurController{
         }
     }
 
-    public function createUserSession($user){
+    public function createUserSession($user)
+    {
         $_SESSION['name'] = $user->name;
         $_SESSION['email'] = $user->email;
+        $_SESSION['password'] = $user->password;
         redirect("../../wiki_tm/index.php");
     }
 
-    public function logout(){
+    public function logout()
+    {
         unset($_SESSION['name']);
         unset($_SESSION['email']);
+        unset($_SESSION['password']);
         session_destroy();
         redirect("../../wiki_tm/index.php");
     }
-
-
-    
-    
 }
 $init = new UtilisateurController();
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
-    switch($_POST['type']){
+    switch ($_POST['type']) {
         case 'register':
             $init->register();
             break;
@@ -129,7 +132,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             redirect("../../wiki_tm/index.php");
     }
 } else {
-    switch($_GET['q']){
+    switch ($_GET['q']) {
         case 'logout':
             $init->logout();
             break;
@@ -137,4 +140,3 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             redirect("../../wiki_tm/index.php");
     }
 }
-
