@@ -34,10 +34,10 @@ class UtilisateurController
             redirect("../views/signup.php");
         }
 
-        if (!preg_match("/^[a-zA-Z0-9]*$/", $data['password'])) {
-            flash("register", "Invalid password");
-            redirect("../views/signup.php");
-        }
+        // if (!preg_match("/^[a-zA-Z0-9]*$/", $data['password'])) {
+        //     flash("register", "Invalid password");
+        //     redirect("../views/signup.php");
+        // }
 
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             flash("register", "Invalid email");
@@ -90,6 +90,7 @@ class UtilisateurController
             // User Found
             if (password_verify($data['password'], $loggedInUser->password)) {
                 // Password is correct
+                redirect("../../wiki_tm/index.php");
                 // Create session
                 $this->createUserSession($loggedInUser);
             } else {

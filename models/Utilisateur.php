@@ -21,7 +21,6 @@ class Utilisateur {
         $this->db->bind(':password', $data['password']);
         // Execute
         if($this->db->execute()){
-
             return true;
         } else {
             return false;
