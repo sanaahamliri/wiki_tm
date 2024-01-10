@@ -89,7 +89,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-black dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-white dark:hover:border-gray-800 pr-6">
+                            <a href="wiki.php" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-black dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-white dark:hover:border-gray-800 pr-6">
                                 <span class="inline-flex justify-center items-center ml-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24" fill="none">
                                         <path clip-rule="evenodd" d="m12 3.75c-4.55635 0-8.25 3.69365-8.25 8.25 0 4.5563 3.69365 8.25 8.25 8.25 4.5563 0 8.25-3.6937 8.25-8.25 0-4.55635-3.6937-8.25-8.25-8.25zm-9.75 8.25c0-5.38478 4.36522-9.75 9.75-9.75 5.3848 0 9.75 4.36522 9.75 9.75 0 5.3848-4.3652 9.75-9.75 9.75-5.38478 0-9.75-4.3652-9.75-9.75zm9.75-.75c.4142 0 .75.3358.75.75v3.5c0 .4142-.3358.75-.75.75s-.75-.3358-.75-.75v-3.5c0-.4142.3358-.75.75-.75zm0-3.25c-.5523 0-1 .44772-1 1s.4477 1 1 1h.01c.5523 0 1-.44772 1-1s-.4477-1-1-1z" fill="white" fill-rule="evenodd" />
@@ -237,10 +237,13 @@
                                     <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
-                                                <div>
-                                                    <p class="font-semibold">SanaaHm</p>
-                                                </div>
+                                                <?php foreach ($categories as $categorie) : ?>
+                                                    <div>
+                                                        <p class="font-semibold"><?php echo $categorie['nomCategorie']; ?></p>
+                                                    </div>
+                                                <?php endforeach; ?>
                                             </div>
+
                                         </td>
                                         <td class="px-4 py-3 text-sm">
 
@@ -259,7 +262,7 @@
                                                         </button>
 
                                                         <form action="../controllers/CategorieController.php" method="post">
-                                                          <input type="hidden" name="categE" value="DeleteC">
+                                                            <input type="hidden" name="categE" value="DeleteC">
 
 
                                                             <div class="p-4 md:p-5 text-center">

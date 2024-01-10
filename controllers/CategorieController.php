@@ -13,6 +13,12 @@ class CategorieController
         $this->categorieModel = new Categorie;
     }
 
+
+    public function GetNomCategorie()
+    {
+        return $this->categorieModel->GetCategorie();
+    }
+
     public function AddCategorie()
     {
         // Sanitize POST data
@@ -29,6 +35,22 @@ class CategorieController
             die("Something went wrong");
         }
     }
+    public function GetCategorie()
+    {
+        $categories = $this->categorieModel->GetCategorie();
+    
+        $data = [
+            'categories' => $categories,
+        ];
+    
+        if ($this->categorieModel->GetCategorie($data)) {
+            redirect("../views/dashboard.php");
+        } else {
+            die("Something went wrong");
+        }
+
+    }
+    
 
     // public function EdditCategorie()
     // {
@@ -39,7 +61,7 @@ class CategorieController
     //     $data = [
     //         'NewCategorieName' => trim($_POST['NewCategorieName']),
     //     ];
-       
+
     //     if ($this->categorieModel->EdditCategorie($data)) {
     //         redirect("../views/dashboard.php");
     //     } else {
