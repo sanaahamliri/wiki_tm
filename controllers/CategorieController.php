@@ -29,6 +29,23 @@ class CategorieController
             die("Something went wrong");
         }
     }
+
+    // public function EdditCategorie()
+    // {
+    //     // Sanitize POST data
+    //     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    //     // Init data
+    //     $data = [
+    //         'NewCategorieName' => trim($_POST['NewCategorieName']),
+    //     ];
+       
+    //     if ($this->categorieModel->EdditCategorie($data)) {
+    //         redirect("../views/dashboard.php");
+    //     } else {
+    //         die("Something went wrong");
+    //     }
+    // }
 }
 $init = new CategorieController();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -42,3 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             redirect("../views/dashboard.php");
     }
 }
+// } else {
+//     switch ($_POST['categE']) {
+//         case 'DeleteC':
+//             $init->DeleteCategorie();
+//             break;
+//         default:
+//             redirect("../../wiki_tm/index.php");
+//     }
+// }

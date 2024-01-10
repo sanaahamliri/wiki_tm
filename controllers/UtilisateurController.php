@@ -18,7 +18,7 @@ class UtilisateurController
         // Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        // Init data
+       
         $data = [
             'name' => trim($_POST['username']),
             'email' => trim($_POST['email']),
@@ -29,25 +29,15 @@ class UtilisateurController
 
 
         // Validate inputs
-        if (empty($data['name']) || empty($data['email']) || empty($data['password'])) {
-            flash("register", "Please fill out all inputs");
-            redirect("../views/signup.php");
-        }
+        // if (empty($data['name']) || empty($data['email']) || empty($data['password'])) {
+        //     flash("register", "Please fill out all inputs");
+        //     redirect("../views/signup.php");
+        // }
 
         // if (!preg_match("/^[a-zA-Z0-9]*$/", $data['password'])) {
         //     flash("register", "Invalid password");
         //     redirect("../views/signup.php");
         // }
-
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            flash("register", "Invalid email");
-            redirect("../views/signup.php");
-        }
-
-        if (strlen($data['password']) < 6) {
-            flash("register", "Password should be at least 6 characters");
-            redirect("../views/signup.php");
-        }
 
         // // User with the same email or password already exists
         // if($this->userModel->findUserByEmailOrName($data['email'], $data['name'])){

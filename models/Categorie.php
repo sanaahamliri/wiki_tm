@@ -24,5 +24,19 @@ class Categorie{
             return false;
         }
     }
+
+    // public function EditCategorie($data){
+        
+    //     $this->db->query('UPDATE `categorie` SET `nomCategorie`='[categorieName]',`nomCategorie`='[NewCategorieName]' WHERE
+    //     VALUES (:categorieName)');
+    //     // Bind values
+    //     $this->db->bind(':categorieName', $data['categorieName']);
+    //     // Execute
+    //     if($this->db->execute()){
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 }
 ?>

@@ -93,26 +93,59 @@ include_once '../includes/header.php';
                 <h1 class="text-3xl font-semibold mb-6 text-black text-center">Sign Up</h1>
                 <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time access and free </h1>
                 <form action="../controllers/UtilisateurController.php" method="POST" class="space-y-4">
-                    <input type="hidden" name="type" value="register"  >
+                    <input type="hidden" name="type" value="register">
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700">Name</label>
                         <input type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="text" id="email" name="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+                        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                         <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
                     </div>
                     <div>
-                        <button type="submit" name="submit"   class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
+                        <button type="submit" name="submit" class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        function validateForm() {
+            var nameInput = document.getElementById("username");
+            var emailInput = document.getElementById("email");
+            var passwordInput = document.getElementById("password");
+
+            const nameRegex = /^[A-Za-z\s]{3,30}$/;
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-z]+\.[a-zA-Z]{2,3}$/;
+            var passwordRegex = /^.{8,}$/;
+
+
+            if (!nameRegex.test(nameInput.value)) {
+                alert("Veuillez saisir un nom valide (entre 3 et 30 caractères, lettres et espaces uniquement).");
+                return false;
+            }
+
+
+            if (!emailRegex.test(emailInput.value)) {
+                alert("Veuillez saisir une adresse e-mail valide.");
+                return false;
+            }
+
+
+            if (!passwordRegex.test(passwordInput.value)) {
+                alert("Veuillez saisir un mot de passe d'au moins 8 caractères.");
+                return false;
+            }
+
+
+            return true;
+        }
+    </script>
 </body>
 
 </html>
