@@ -25,7 +25,7 @@ class Categorie
 
         $this->db->query('INSERT INTO categorie (nomCategorie) 
         VALUES (:categorieName)');
-        
+
         $this->db->bind(':categorieName', $data['categorieName']);
         // Execute
         if ($this->db->execute()) {
@@ -36,14 +36,35 @@ class Categorie
     }
 
 
-    // Dans votre modèle
     public function GetCategorie(): array
     {
-        $query = "SELECT * FROM question";
-        $stmt = $this->db->query($query);
+        $query = "SELECT * FROM categorie";
+        $this->db->query($query);
+        $dataname = $this->db->resultSet(PDO::FETCH_ASSOC);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $names = array();
+
+        foreach ($dataname as $data) {
+            $names[] = $data['nomCategorie'];
+            $idCategories[] = $data['idCategorie'];
+        }
+
+        return $names;
+        return $idCategories;
     }
+
+    // public function deleteCategorie($idCategorie)
+    // {
+    //     $this->db->query('DELETE FROM categorie WHERE idCategorie = :idCategorie');
+    //     $this->db->bind(':idCategorie', $idCategorie);
+
+    //     if ($this->db->execute()) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+}
 
 
 
@@ -61,4 +82,3 @@ class Categorie
     //         return false;
     //     }
     // }
-}

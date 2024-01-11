@@ -1,9 +1,10 @@
-<?php 
-    session_start(); 
+<?php
+session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +12,23 @@
     <title>PHP Login System</title>
     <link rel="stylesheet" href="../assets/css/style.css" type="text/css">
 </head>
+
 <body>
     <nav>
         <ul>
-            <a href="../index.php"><li>Home</li></a>
-                <a href="../views/signup.php"><li>Sign Up</li></a>
-                <a href="../views/login.php"><li>Login</li></a>
-                <a href="../controllers/UtilisateurController.php?q=logout"><li>Logout</li></a>
+            <a href="../index.php">
+                <li>Home</li>
+            </a>
+            <a href="../views/signup.php">
+                <li>Sign Up</li>
+            </a>
+            <a href="../views/login.php">
+                <li>Login</li>
+            </a>
+            <a href="../controllers/UtilisateurController.php?q=logout">
+                <li>Logout</li>
+            </a>
+           
         </ul>
+
     </nav>

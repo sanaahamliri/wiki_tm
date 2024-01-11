@@ -37,14 +37,15 @@ class CategorieController
     }
     public function GetCategorie()
     {
-        $categories = $this->categorieModel->GetCategorie();
+       
     
         $data = [
-            'categories' => $categories,
+            'categories' => $this->categorieModel->GetCategorie(),
         ];
+       
     
-        if ($this->categorieModel->GetCategorie($data)) {
-            redirect("../views/dashboard.php");
+        if ($data['categories']) {
+            return $data['categories'];
         } else {
             die("Something went wrong");
         }
