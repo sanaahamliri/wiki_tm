@@ -32,21 +32,21 @@ class Wiki
         $this->db->execute();
     
         $lastIdWiki = $this->db->lastID();
-        $tags = $data['WikiTags']; // Fix: Use $data['WikiTags'] instead of $this->db->$data['WikiTags']
+        $tags = $data['WikiTags'];
     
         foreach ($tags as $tag) {
             $this->db->query("INSERT INTO wikitag (idWiki, idTag) VALUES (:wikiId, :tagId)");
             $this->db->bind(':wikiId', $lastIdWiki);
-            $this->db->bind(':tagId', $tag); // Fix: Add a semicolon at the end
+            $this->db->bind(':tagId', $tag);
     
             $this->db->execute();
             
-            if (!$this->db->execute()) { // Fix: Remove the unnecessary if condition
+            if (!$this->db->execute()) { 
                 return false;
             }
         }
     
-        return true; // Moved outside the loop to ensure it's only returned once after all tags are processed
+        return true;
     }
     
 
@@ -54,7 +54,8 @@ class Wiki
     {
         $query = "SELECT * FROM wiki";
         $this->db->query($query);
-        $dataname = $this->db->resultSet(PDO::FETCH_ASSOC);
+        $dataname = $this->db->resultSet();
+       
         // die(
         //     print_r($dataname)
         // );
@@ -68,4 +69,5 @@ class Wiki
 
         return $dataname;
     }
+
 }

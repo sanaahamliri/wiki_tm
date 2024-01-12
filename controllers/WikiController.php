@@ -21,17 +21,17 @@ class WikiController
 
     public function AddWiki()
     {
-       
+
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-      
+
         $data = [
             'WikiTitre' => trim($_POST['titre_wiki']),
             'WikiContenu' => trim($_POST['contenu_wiki']),
-            'WikiTags' =>($_POST['tags']),
+            'WikiTags' => ($_POST['tags']),
             'WikiCategorie' => trim($_POST['categoryID'])
         ];
-        
+
         if ($this->wikiModel->AddWiki($data)) {
             redirect("../index.php");
         } else {
@@ -41,67 +41,58 @@ class WikiController
 
     public function GetWiki()
     {
-        $data = [
-            'WikiTitre' => $this->wikiModel->GetWiki(),
-            'WikiContenu' => $this->wikiModel->GetWiki(),
-            'WikiTags' => $this->wikiModel->GetWiki(),
-            'WikiCategorie' => $this->wikiModel->GetWiki(),
-
-        ];
-
-
-        if ($data) {
-            return $data;
+        if ($this->wikiModel->GetWiki()) {
+            return $this->wikiModel->GetWiki();
         } else {
             die("Something went wrong");
         }
     }
-//     public function DeleteCategorie($id)
-//     {
-//         // echo "delete";
-//         // die();
-//         $this->wikiModel->DeleteCategorie($id);
-//     }
+    //     public function DeleteCategorie($id)
+    //     {
+    //         // echo "delete";
+    //         // die();
+    //         $this->wikiModel->DeleteCategorie($id);
+    //     }
 
 
-//     public function EdditCategorie()
-//     {
-//         //die(var_dump($_POST));
-//         // Sanitize POST data
-//         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    //     public function EdditCategorie()
+    //     {
+    //         //die(var_dump($_POST));
+    //         // Sanitize POST data
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-//         // Init data
-//         $data = [
-//             'NewCategorieName' => trim($_POST['NewCategorie']),
-//             "id" => $_POST["idCategorie"]
-//         ];
+    //         // Init data
+    //         $data = [
+    //             'NewCategorieName' => trim($_POST['NewCategorie']),
+    //             "id" => $_POST["idCategorie"]
+    //         ];
 
-//         if ($this->wikiModel->EditCategorie($data)) {
-//             redirect("../views/dashboard.php");
-//         } else {
-//             die("Something went wrong");
-//         }
-//     }
-// }
+    //         if ($this->wikiModel->EditCategorie($data)) {
+    //             redirect("../views/dashboard.php");
+    //         } else {
+    //             die("Something went wrong");
+    //         }
+    //     }
+    // }
 }
 $init = new WikiController();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-//    die('azerty');
+    //    die('azerty');
 
     switch ($_POST['wiki']) {
         case 'AddW':
             $init->AddWiki();
             break;
-        // case 'DeleteC':
-        //     $init->DeleteCategorie($_POST["idCategorie"]);
-        //     redirect("../views/dashboard.php");
-        //     break;
-        // case 'EditC':
-        
-        //     $init->EdditCategorie();
-        //     redirect("../views/dashboard.php");
-        //     break;
+            // case 'DeleteC':
+            //     $init->DeleteCategorie($_POST["idCategorie"]);
+            //     redirect("../views/dashboard.php");
+            //     break;
+            // case 'EditC':
+
+            //     $init->EdditCategorie();
+            //     redirect("../views/dashboard.php");
+            //     break;
         default:
             redirect("../index.php");
     }

@@ -1,3 +1,6 @@
+<?php
+require_once('../controllers/WikiController.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,37 +124,35 @@
                     <div class="w-full overflow-hidden rounded-lg shadow-xs">
                         <div class="w-full overflow-x-auto">
                             <table class="w-full">
+
                                 <thead>
-                                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                        <th class="px-4 py-3">titre de wiki</th>
-                                        <th class="px-4 py-3">Contenu</th>
-                                        <th class="px-4 py-3">Archiver</th>
+                                    <tr class="bg-gray-200">
+
+                                        <th class="border p-2">Wiki Title</th>
+                                        <th class="border p-2">Content</th>
+                                        <th class="border p-2">Archive</th>
                                     </tr>
                                 </thead>
-                                <form action="../controllers/WikiController.php">
-                                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                        <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                                            <td class="px-4 py-3">
-                                                <div class="flex items-center text-sm">
-                                                    <div>
-                                                        <p class="font-semibold">SanaaHm</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3 text-sm">
-                                                <div class="flex items-center text-sm">
-                                                    <div>
-                                                        <p class="font-semibold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, consequuntur?</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3 text-sm">
-                                                <button class="px-2 py-1 font-semibold leading-tight text-white bg-yellow-700 rounded-full dark:bg-green-700 dark:text-green-100"> Archiver </button>
-                                                <input type="submit" name="submit">
+                                <tbody>
+                                    <?php
+                                    $wiki = new WikiController();
+                                    $wiki->GetWiki();
+                                    // print_r($wiki->GetWiki());
+                                    foreach ($wiki->GetWiki() as $wiki) :
+                                    ?>
+                                        <tr class="border">
+
+                                            <td class="border p-2"><?php echo $wiki['titre']; ?></td>
+                                            <td class="border p-2"><?php echo $wiki['contenu']; ?></td>
+                                            <td class="border p-2 flex justify-around">
+                                                <button type="submit" class="archive-btn" name="archive" value="<?= $wiki['idWiki']; ?>">
+                                                    <i class="fas fa-archive"><?= $wiki['idWiki']; ?></i>
+                                                </button>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </form>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                             </table>
                         </div>
                     </div>
