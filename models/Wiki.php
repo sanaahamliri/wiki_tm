@@ -1,29 +1,26 @@
 <?php
-class Wiki
+
+class WikiModel
 {
     private $db;
 
-    public function __construct()
+    public function __construct($db)
     {
-        $this->db = new Database();
+        $this->db = $db;
     }
 
-
-    
-    public function AddWiki($data)
+    public function addWiki($title, $content, $userId, $categoryId)
     {
+        $stmt = $this->db->prepare("INSERT INTO wiki (titre, contenu, idUser, idCategorie) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssii", $title, $content, $userId, $categoryId);
 
-        $this->db->query('INSERT INTO wiki (titre,contenu,image) 
-        VALUES (:titre, :contenu, :image)');
-
-        $this->db->bind(':titre', $titre);
-        $this->db->bind(':contenu', $contenu);
-        $this->db->bind(':image', $img);
-        // Execute
-        if ($this->db->execute()) {
+        if ($stmt->execute()) {
+            $stmt->close();
             return true;
         } else {
+            $stmt->close();
             return false;
         }
     }
 }
+?>

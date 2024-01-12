@@ -1,7 +1,7 @@
 <?php
 
 require_once '../models/Tag.php';
-require '../helpers/header.php';
+require_once '../helpers/header.php';
 
 class TagController
 {
@@ -29,6 +29,47 @@ class TagController
             die("Something went wrong");
         }
     }
+
+    public function GetTag()
+    {
+        $data = [
+            'tags' => $this->tagModel->GetTag(),
+        ];
+
+
+        if ($data['tags']) {
+            return $data['tags'];
+        } else {
+            die("Something went wrong");
+        }
+    }
+
+    public function DeleteTag($id)
+    {
+        // echo "delete";
+        // die();
+        $this->tagModel->DeleteTag($id);
+    }
+
+
+    public function EditTag()
+    {
+        //die(var_dump($_POST));
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Init data
+        $data = [
+            'NewTagName' => trim($_POST['NewTag']),
+            "id" => $_POST["idTag"]
+        ];
+
+        if ($this->tagModel->EditTag($data)) {
+            redirect("../views/dashboard.php");
+        } else {
+            die("Something went wrong");
+        }
+    }
 }
 $init = new TagController();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -37,6 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     switch ($_POST['tagg']) {
         case 'AddT':
             $init->AddTag();
+            break;
+        case 'DeleteT':
+            $init->DeleteTag($_POST["idTag"]);
+            redirect("../views/dashboard.php");
+            break;
+        case 'EditT':
+
+            $init->EditTag();
+            redirect("../views/dashboard.php");
             break;
         default:
             redirect("../views/dashboard.php");

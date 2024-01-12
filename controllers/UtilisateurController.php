@@ -1,7 +1,7 @@
 <?php
 
 require_once '../models/Utilisateur.php';
-require '../helpers/header.php';
+require_once '../helpers/header.php';
 
 class UtilisateurController
 {
@@ -50,7 +50,7 @@ class UtilisateurController
 
         // Register User
         if ($this->userModel->register($data)) {
-            redirect("../../wiki_tm/index.php");
+            redirect("../views/login.php");
         } else {
             die("Something went wrong");
         }
@@ -98,6 +98,7 @@ class UtilisateurController
         $_SESSION['name'] = $user->name;
         $_SESSION['email'] = $user->email;
         $_SESSION['password'] = $user->password;
+        $_SESSION['userID'] = $user->userID;
         redirect("../../wiki_tm/index.php");
     }
 
@@ -106,6 +107,7 @@ class UtilisateurController
         unset($_SESSION['name']);
         unset($_SESSION['email']);
         unset($_SESSION['password']);
+        unset($_SESSION['userID']);
         session_destroy();
         redirect("../../wiki_tm/index.php");
     }

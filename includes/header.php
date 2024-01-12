@@ -25,10 +25,10 @@ session_start();
             <a href="../views/login.php">
                 <li>Login</li>
             </a>
-            <a href="../controllers/UtilisateurController.php?q=logout">
+            <!-- <a href="../controllers/UtilisateurController.php?q=logout">
                 <li>Logout</li>
             </a>
-           
+            -->
         </ul>
 
     </nav>

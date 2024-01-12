@@ -1,7 +1,7 @@
 <?php
 
 require_once '../models/Categorie.php';
-require '../helpers/header.php';
+require_once '../helpers/header.php';
 
 class CategorieController
 {
@@ -21,14 +21,14 @@ class CategorieController
 
     public function AddCategorie()
     {
-        // Sanitize POST data
+       
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        // Init data
+      
         $data = [
             'categorieName' => trim($_POST['categorieName']),
         ];
-        // Register User
+        
         if ($this->categorieModel->AddCategorie($data)) {
             redirect("../views/dashboard.php");
         } else {
@@ -38,10 +38,6 @@ class CategorieController
 
     public function GetCategorie()
     {
-
-
-
-
         $data = [
             'categories' => $this->categorieModel->GetCategorie(),
         ];
@@ -101,11 +97,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         default:
             redirect("../views/dashboard.php");
     }
-    // switch ($_POST['categE']) {
-    //         // case 'DeleteC':
-    //         //     $init->DeleteCategorie($_POST["idCategorie"]);
-    //         //     break;
-    //         // default:
-    //         //     redirect("../../wiki_tm/index.php");
-    // }
 }
