@@ -41,9 +41,8 @@ class Utilisateur {
     }
 
     // Find user by email or name
-    public function findUserByEmailOrName($email, $name){
-        $this->db->query('SELECT * FROM utilisateur WHERE nom = :name OR email = :email');
-        $this->db->bind(':name', $name);
+    public function findUserByEmailOrName($email){
+        $this->db->query('SELECT * FROM utilisateur WHERE email = :email');
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();

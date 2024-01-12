@@ -1,8 +1,7 @@
 <?php
-
+session_start();
 require_once '../models/Utilisateur.php';
 require_once '../helpers/header.php';
-
 class UtilisateurController
 {
 
@@ -63,25 +62,28 @@ class UtilisateurController
 
         // Init data
         $data = [
-            'name/email' => trim($_POST['name/email']),
+            'email' => trim($_POST['email']),
             'password' => trim($_POST['password'])
         ];
-
-        if (empty($data['name/email']) || empty($data['password'])) {
+        
+        if (empty($data['email']) || empty($data['password'])) {
             flash("login", "Please fill out all inputs");
             redirect("../views/login.php");
             exit();
         }
 
         // Check for user/email
-        $loggedInUser = $this->userModel->findUserByEmailOrName($data['name/email'], $data['name/email']);
+        $loggedInUser = $this->userModel->findUserByEmailOrName($data['email']);
+        
 
         if ($loggedInUser) {
-            // User Found
-            if (password_verify($data['password'], $loggedInUser->password)) {
-                // Password is correct
+        //    var_dump($loggedInUser);
+        //    die;
+            if (password_verify($data['password'], $loggedInUser['password'])) {
+              
+               
                 redirect("../../wiki_tm/index.php");
-                // Create session
+               
                 $this->createUserSession($loggedInUser);
             } else {
                 flash("login", "Password Incorrect");
@@ -98,7 +100,6 @@ class UtilisateurController
         $_SESSION['name'] = $user->name;
         $_SESSION['email'] = $user->email;
         $_SESSION['password'] = $user->password;
-        $_SESSION['userID'] = $user->userID;
         redirect("../../wiki_tm/index.php");
     }
 
@@ -107,7 +108,6 @@ class UtilisateurController
         unset($_SESSION['name']);
         unset($_SESSION['email']);
         unset($_SESSION['password']);
-        unset($_SESSION['userID']);
         session_destroy();
         redirect("../../wiki_tm/index.php");
     }

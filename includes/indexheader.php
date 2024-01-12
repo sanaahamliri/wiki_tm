@@ -2,7 +2,7 @@
 session_start();
 ?>
 <?php
-if (isset($_SESSION['name']) && isset($_SESSION['email']) && isset($_SESSION['userID'])) {
+if (isset($_SESSION['name']) && isset($_SESSION['email'])) {
     echo
     '<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
             <span class="sr-only">Open user menu</span>

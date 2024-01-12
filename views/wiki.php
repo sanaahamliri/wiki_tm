@@ -128,27 +128,30 @@
                                         <th class="px-4 py-3">Archiver</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                    <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                                        <td class="px-4 py-3">
-                                            <div class="flex items-center text-sm">
-                                                <div>
-                                                    <p class="font-semibold">SanaaHm</p>
+                                <form action="../controllers/WikiController.php">
+                                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                        <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center text-sm">
+                                                    <div>
+                                                        <p class="font-semibold">SanaaHm</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm">
-                                            <div class="flex items-center text-sm">
-                                                <div>
-                                                    <p class="font-semibold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, consequuntur?</p>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm">
+                                                <div class="flex items-center text-sm">
+                                                    <div>
+                                                        <p class="font-semibold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, consequuntur?</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm">
-                                            <button class="px-2 py-1 font-semibold leading-tight text-white bg-yellow-700 rounded-full dark:bg-green-700 dark:text-green-100"> Archiver </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm">
+                                                <button class="px-2 py-1 font-semibold leading-tight text-white bg-yellow-700 rounded-full dark:bg-green-700 dark:text-green-100"> Archiver </button>
+                                                <input type="submit" name="submit">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </form>
                             </table>
                         </div>
                     </div>
