@@ -1,10 +1,9 @@
 <?php
 
-require_once '../models/Wiki.php';
-require_once '../helpers/header.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/models/Wiki.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/helpers/header.php';
 
-class WikiController
-{
+class WikiController{
 
     private $wikiModel;
 
@@ -13,10 +12,18 @@ class WikiController
         $this->wikiModel = new Wiki;
     }
 
+    public function welcome()
+    {
+        echo "ana welcome";
+    }
+
 
     public function GetNomWiki()
     {
         return $this->wikiModel->GetWiki();
+    }
+    public function test(){
+        echo "test";
     }
 
     public function AddWiki()
@@ -29,11 +36,37 @@ class WikiController
             'WikiTitre' => trim($_POST['titre_wiki']),
             'WikiContenu' => trim($_POST['contenu_wiki']),
             'WikiTags' => ($_POST['tags']),
-            'WikiCategorie' => trim($_POST['categoryID'])
+            'WikiCategorie' => trim($_POST['categoryID']),
+
         ];
 
         if ($this->wikiModel->AddWiki($data)) {
-            redirect("../index.php");
+            redirect("../views/AddWiki.php");
+        } else {
+            die("Something went wrong");
+        }
+    }
+
+
+    public function EditWiki()
+    {
+
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+
+        $data = [
+            'WikiTitre' => trim($_POST['Newtitre_wiki']),
+            'WikiContenu' => trim($_POST['Newcontenu_wiki']),
+            'WikiTags' => ($_POST['Newtags']),
+            'WikiCategorie' => trim($_POST['NewcategoryID']),
+            'WikiID' => trim($_POST['idWiki']),
+
+        ];
+
+
+        if ($this->wikiModel->EditWiki($data)) {
+
+            redirect("../views/AddWiki.php");
         } else {
             die("Something went wrong");
         }
@@ -47,53 +80,50 @@ class WikiController
             die("Something went wrong");
         }
     }
-    //     public function DeleteCategorie($id)
-    //     {
-    //         // echo "delete";
-    //         // die();
-    //         $this->wikiModel->DeleteCategorie($id);
-    //     }
 
+    public function archiveWiki($wikiId)
+    {
+        $this->wikiModel->archiveWiki($wikiId);
+    }
 
-    //     public function EdditCategorie()
-    //     {
-    //         //die(var_dump($_POST));
-    //         // Sanitize POST data
-    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    public function deleteWiki($wikiId)
+    {
+        $this->wikiModel->deleteWiki($wikiId);
+    }
 
-    //         // Init data
-    //         $data = [
-    //             'NewCategorieName' => trim($_POST['NewCategorie']),
-    //             "id" => $_POST["idCategorie"]
-    //         ];
-
-    //         if ($this->wikiModel->EditCategorie($data)) {
-    //             redirect("../views/dashboard.php");
-    //         } else {
-    //             die("Something went wrong");
-    //         }
-    //     }
-    // }
+    public function details($idWiki)
+    {
+        return $this->wikiModel->show($idWiki);
+    }
+    
 }
+
 $init = new WikiController();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    //    die('azerty');
 
     switch ($_POST['wiki']) {
-        case 'AddW':
-            $init->AddWiki();
+        case 'AddW': {
+                $init->AddWiki();
+                redirect("../views/AddWiki.php");
+                break;
+            }
+        case 'DeleteW': {
+                $init->deleteWiki($_POST["idWiki"]);
+                redirect("../views/AddWiki.php");
+                break;
+            }
+        case 'archiveWiki': {
+                $init->archiveWiki($_POST['WikiId']);
+                redirect("../views/wiki.php");
+                break;
+            }
+        case 'EditW':
+            $init->EditWiki();
+            redirect("../views/AddWiki.php");
             break;
-            // case 'DeleteC':
-            //     $init->DeleteCategorie($_POST["idCategorie"]);
-            //     redirect("../views/dashboard.php");
-            //     break;
-            // case 'EditC':
-
-            //     $init->EdditCategorie();
-            //     redirect("../views/dashboard.php");
-            //     break;
         default:
-            redirect("../index.php");
+            echo 'failed';
+            redirect("../views/AddWiki.php");
     }
 }

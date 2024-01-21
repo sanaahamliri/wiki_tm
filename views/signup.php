@@ -9,6 +9,7 @@ include_once '../includes/header.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/signup.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -90,7 +91,7 @@ include_once '../includes/header.php';
         <!-- Right Pane -->
         <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
             <div class="max-w-md w-full p-6">
-                <h1 class="text-3xl font-semibold mb-6 text-black text-center">Sign Up</h1>
+                <h1 class="text-3xl font-semibold mb-6 text-black text-center">Sign Up As a Author</h1>
                 <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time access and free </h1>
                 <form action="../controllers/UtilisateurController.php" method="POST" class="space-y-4">
                     <input type="hidden" name="type" value="register">
@@ -113,39 +114,7 @@ include_once '../includes/header.php';
             </div>
         </div>
     </div>
-
-    <script>
-        function validateForm() {
-            var nameInput = document.getElementById("username");
-            var emailInput = document.getElementById("email");
-            var passwordInput = document.getElementById("password");
-
-            const nameRegex = /^[A-Za-z\s]{3,30}$/;
-            const emailRegex = /^[a-zA-Z0-9._-]+@[a-z]+\.[a-zA-Z]{2,3}$/;
-            var passwordRegex = /^.{8,}$/;
-
-
-            if (!nameRegex.test(nameInput.value)) {
-                alert("Veuillez saisir un nom valide (entre 3 et 30 caractères, lettres et espaces uniquement).");
-                return false;
-            }
-
-
-            if (!emailRegex.test(emailInput.value)) {
-                alert("Veuillez saisir une adresse e-mail valide.");
-                return false;
-            }
-
-
-            if (!passwordRegex.test(passwordInput.value)) {
-                alert("Veuillez saisir un mot de passe d'au moins 8 caractères.");
-                return false;
-            }
-
-
-            return true;
-        }
-    </script>
+    <script src="../assets/js/signup.js"></script>
 </body>
 
 </html>

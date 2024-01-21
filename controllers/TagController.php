@@ -1,7 +1,7 @@
 <?php
 
-require_once '../models/Tag.php';
-require_once '../helpers/header.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/models/Tag.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/helpers/header.php';
 
 class TagController
 {
@@ -84,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             redirect("../views/dashboard.php");
             break;
         case 'EditT':
-
             $init->EditTag();
             redirect("../views/dashboard.php");
             break;

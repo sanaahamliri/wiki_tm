@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../models/Utilisateur.php';
-require_once '../helpers/header.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/models/Utilisateur.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/helpers/header.php';
 class UtilisateurController
 {
 
@@ -11,97 +11,98 @@ class UtilisateurController
     {
         $this->userModel = new Utilisateur;
     }
-
+    /*====================Register====================== */
     public function register()
     {
-        // Sanitize POST data
+
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-       
+
         $data = [
             'name' => trim($_POST['username']),
             'email' => trim($_POST['email']),
             'password' => trim($_POST['password'])
         ];
 
-        
-
-
-        // Validate inputs
-        // if (empty($data['name']) || empty($data['email']) || empty($data['password'])) {
-        //     flash("register", "Please fill out all inputs");
-        //     redirect("../views/signup.php");
-        // }
-
-        // if (!preg_match("/^[a-zA-Z0-9]*$/", $data['password'])) {
-        //     flash("register", "Invalid password");
-        //     redirect("../views/signup.php");
-        // }
-
-        // // User with the same email or password already exists
-        // if($this->userModel->findUserByEmailOrName($data['email'], $data['name'])){
-        //     flash("register", "Username or email already taken");
-        //     redirect("../views/signup.php");
-        // }
-
-        // Passed all validation checks.
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        // Register User
+
         if ($this->userModel->register($data)) {
             redirect("../views/login.php");
         } else {
             die("Something went wrong");
         }
     }
+    /*====================End Register====================== */
 
+
+
+    /*==================== Login ====================== */
     public function login()
     {
-        // Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        // Init data
+        // $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
         $data = [
             'email' => trim($_POST['email']),
-            'password' => trim($_POST['password'])
+            'password' => trim($_POST['password']),
         ];
-        
-        if (empty($data['email']) || empty($data['password'])) {
-            flash("login", "Please fill out all inputs");
-            redirect("../views/login.php");
-            exit();
-        }
 
-        // Check for user/email
-        $loggedInUser = $this->userModel->findUserByEmailOrName($data['email']);
-        
+        if (empty($data['email']) || empty($data['password'])) {
+            echo '<script>';
+            echo 'alert("Please fill out all inputs");';
+            echo 'window.location.href="../views/login.php";';
+            echo '</script>';
+            exit();
+        } else {
+            $loggedInUser = $this->userModel->findUserByEmailOrName($data['email']);
+        }
 
         if ($loggedInUser) {
-        //    var_dump($loggedInUser);
-        //    die;
-            if (password_verify($data['password'], $loggedInUser['password'])) {
-              
-               
-                redirect("../../wiki_tm/index.php");
-               
-                $this->createUserSession($loggedInUser);
+
+            if (!password_verify($data['password'], $loggedInUser['password'])) {
+                echo '<script>';
+                echo 'alert("Invalid password");';
+                echo 'window.location.href="../views/login.php";';
+                echo '</script>';
+                exit();
             } else {
-                flash("login", "Password Incorrect");
-                redirect("../views/login.php");
+                if ($loggedInUser['role'] == 1) {
+                    $_SESSION['admin'] = $loggedInUser['idUser'];
+                    $_SESSION['name_admin'] = $loggedInUser['nom'];
+                    $_SESSION['email_admin'] = $loggedInUser['email'];
+                    redirect("../views/dashboard.php");
+                } else {
+                    $_SESSION['user'] = $loggedInUser['idUser'];
+                    $_SESSION['name_author'] = $loggedInUser['nom'];
+                    $_SESSION['email_author'] = $loggedInUser['email'];
+                    redirect("../index.php");
+                }
             }
         } else {
-            flash("login", "No user found");
-            redirect("../views/login.php");
-        }
+            echo '<script>';
+            echo 'alert("No user found");';
+            echo 'window.location.href="../views/login.php";';
+            echo '</script>';        }
     }
 
-    public function createUserSession($user)
-    {
-        $_SESSION['name'] = $user->name;
-        $_SESSION['email'] = $user->email;
-        $_SESSION['password'] = $user->password;
-        redirect("../../wiki_tm/index.php");
-    }
+    /*====================End Login====================== */
+
+
+
+    /*====================Session====================== */
+
+    // public function createUserSession($user)
+    // {
+    //     $_SESSION['idUser'] = $user['idUser'];
+    //     $_SESSION['name'] = $user['nom'];
+    //     $_SESSION['email'] = $user['email'];
+    //     redirect("../../wiki_tm/index.php");
+    // }
+    /*====================End Session====================== */
+
+
+    /*====================Logout function====================== */
 
     public function logout()
     {
@@ -111,7 +112,10 @@ class UtilisateurController
         session_destroy();
         redirect("../../wiki_tm/index.php");
     }
+    /*====================End Logout function====================== */
 }
+
+
 $init = new UtilisateurController();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 

@@ -15,13 +15,13 @@ if (!isset($_SESSION['user'])) {
     <body>
         <nav>
             <ul>
-                <a href="../wiki_tm/index.php">
+                <a href="../../index.php">
                     <li>Home</li>
                 </a>
-                <a href="../wiki_tm/views/signup.php">
+                <a href="../signup.php">
                     <li>Sign Up</li>
                 </a>
-                <a href="../wiki_tm/views/login.php">
+                <a href="../login.php">
                     <li>Login</li>
                 </a>
     
@@ -56,10 +56,10 @@ if (!isset($_SESSION['user'])) {
         <!-- User Actions Section -->
         <ul class="py-2" aria-labelledby="user-menu-button">
             <li>
-                <a href="../wiki_tm/views/AddWiki.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Add Wiki</a>
+                <a href="../AddWiki.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Add Wiki</a>
             </li>
             <li>
-                <a href="controllers/UtilisateurController.php?q=logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
+                <a href="../../controllers/UtilisateurController.php?q=logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
             </li>
         </ul>
     </div>';

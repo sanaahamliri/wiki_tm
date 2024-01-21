@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/database.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/config/database.php';
 
 class Tag{
 
@@ -62,5 +62,19 @@ class Tag{
             return false;
         }
     }
+
+    public function getCount(){
+        $query = "SELECT COUNT(*) as count FROM tag"; 
+        $this->db->query($query);
+        $result = $this->db->execute();
+        
+        if($result) {
+            $row = $this->db->single(); 
+            return $row['count'];
+        } else {
+            return 0; 
+        }
+    }
+    
 }
 ?>

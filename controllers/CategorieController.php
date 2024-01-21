@@ -1,7 +1,7 @@
 <?php
 
-require_once '../models/Categorie.php';
-require_once '../helpers/header.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/models/Categorie.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/helpers/header.php';
 
 class CategorieController
 {
@@ -22,7 +22,7 @@ class CategorieController
     public function AddCategorie()
     {
        
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       
         $data = [
@@ -69,12 +69,14 @@ class CategorieController
             "id" => $_POST["idCategorie"]
         ];
 
-        if ($this->categorieModel->EditCategorie($data)) {
+        if ($this->categorieModel->EditCategorie($data)) {  
             redirect("../views/dashboard.php");
         } else {
             die("Something went wrong");
         }
     }
+
+    
 }
 $init = new CategorieController();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

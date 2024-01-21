@@ -1,18 +1,20 @@
 <?php
 
-require_once '../config/database.php';
+require_once 'C:/xampp/htdocs/a_wiki/wiki_tm/config/database.php';
 
-class Utilisateur {
+class Utilisateur
+{
 
     private $db;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = new Database;
     }
-
     // Register User
-    public function register($data){
-        
+    public function register($data)
+    {
+
         $this->db->query('INSERT INTO utilisateur (nom, email, password, role) 
         VALUES (:name, :email, :password, 2)');
         // Bind values
@@ -20,43 +22,54 @@ class Utilisateur {
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
         // Execute
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
         } else {
             return false;
         }
     }
     // Login user
-    public function login($nameOrEmail, $password){
-        $row = $this->findUserByEmailOrName($nameOrEmail, $nameOrEmail);
+    // public function login($Email, $password)
+    // {
+    //     $row = $this->findUserByEmailOrName($Email);
 
-        if($row == false) return false;
+    //     if ($row == false) return false;
 
-        $hashedPassword = $row->password;
-        if(password_verify($password, $hashedPassword)){
-            return $row;
-        } else {
-            return false;
-        }
-    }
+    //     $hashedPassword = $row->password;
+    //     if (password_verify($password, $hashedPassword)) {
+    //         return $row;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
-    // Find user by email or name
-    public function findUserByEmailOrName($email){
+    public function findUserByEmailOrName($email)
+    {
         $this->db->query('SELECT * FROM utilisateur WHERE email = :email');
+        // $this->db->bind(':name', $name);
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
 
-        // Check row
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
+            // print_r($row['nom']);
             return $row;
         } else {
             return false;
         }
     }
 
-    
 
-   
+    public function getCount(){
+        $query = "SELECT COUNT(*) as count FROM utilisateur"; 
+        $this->db->query($query);
+        $result = $this->db->execute();
+        
+        if($result) {
+            $row = $this->db->single(); 
+            return $row['count'];
+        } else {
+            return 0; 
+        }
+    }
 }
-?>
